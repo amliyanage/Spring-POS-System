@@ -59,4 +59,13 @@ public class CustomerServiceIMPL implements CustomerService {
         }
     }
 
+    @Override
+    public void deleteCustomer(String customerId) {
+        if (customerRepository.existsById(customerId)) {
+            customerRepository.deleteById(customerId);
+        } else {
+            throw new CustomerNotFountException("Customer delete failed..!");
+        }
+    }
+
 }

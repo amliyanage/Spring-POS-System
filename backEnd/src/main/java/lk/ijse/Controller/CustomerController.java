@@ -54,4 +54,16 @@ public class CustomerController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @DeleteMapping("/{customerId}")
+    public ResponseEntity<String> deleteCustomer(@PathVariable("customerId") String customerId){
+        try {
+            customerService.deleteCustomer(customerId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (CustomerNotFountException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
