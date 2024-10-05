@@ -43,4 +43,15 @@ public class CustomerController {
         }
     }
 
+    @GetMapping("/{customerId}")
+    public ResponseEntity<CustomerDTO> getCustomer(@PathVariable("customerId") String customerId){
+        try {
+            CustomerDTO customer = customerService.getCustomer(customerId);
+            return new ResponseEntity<>(customer,HttpStatus.OK);
+        } catch (CustomerNotFountException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

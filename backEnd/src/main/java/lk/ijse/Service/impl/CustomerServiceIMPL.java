@@ -49,4 +49,14 @@ public class CustomerServiceIMPL implements CustomerService {
         }
     }
 
+    @Override
+    public CustomerDTO getCustomer(String customerId) {
+        Optional<CustomerEntity> customerEntity = customerRepository.findById(customerId);
+        if (customerEntity.isPresent()) {
+            return mapping.convertToDTO(customerEntity.get());
+        } else {
+            throw new CustomerNotFountException("Customer not found..!");
+        }
+    }
+
 }
