@@ -11,5 +11,5 @@ public class CustomerDTO implements SuperDTO {
     private String customerId;
     private String customerName;
     private String customerAddress;
-    private String customerSalary;
+    private double customerSalary;
 }
