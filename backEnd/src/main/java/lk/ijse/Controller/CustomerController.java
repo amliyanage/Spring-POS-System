@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/customer")
 @RequiredArgsConstructor
@@ -63,6 +65,16 @@ public class CustomerController {
         } catch (CustomerNotFountException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<CustomerDTO>> getAllCustomers(){
+        try {
+            List<CustomerDTO> allCustomers = customerService.getAllCustomers();
+            return new ResponseEntity<>(allCustomers,HttpStatus.OK);
+        } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
