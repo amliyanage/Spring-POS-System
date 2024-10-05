@@ -1,4 +1,15 @@
 package lk.ijse.dto;
 
-public class CustomerDTO {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class CustomerDTO implements SuperDTO {
+    private String customerId;
+    private String customerName;
+    private String customerAddress;
+    private String customerSalary;
 }
