@@ -4,12 +4,15 @@ import lk.ijse.Repository.CustomerRepository;
 import lk.ijse.Service.CustomerService;
 import lk.ijse.dto.CustomerDTO;
 import lk.ijse.entity.CustomerEntity;
+import lk.ijse.exception.CustomerNotFountException;
 import lk.ijse.exception.DataPersistFailedException;
 import lk.ijse.util.Mapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -31,6 +34,18 @@ public class CustomerServiceIMPL implements CustomerService {
             }
         } else {
             throw new DataPersistFailedException("Customer already exist..!");
+        }
+    }
+
+    @Override
+    public void updateCustomer(CustomerDTO customerDTO) {
+        Optional<CustomerEntity> customerEntity = customerRepository.findById(customerDTO.getCustomerId());
+        if (customerEntity.isPresent()) {
+            customerEntity.get().setCustomerName(customerDTO.getCustomerName());
+            customerEntity.get().setCustomerAddress(customerDTO.getCustomerAddress());
+            customerEntity.get().setCustomerSalary(customerDTO.getCustomerSalary());
+        } else {
+            throw new CustomerNotFountException("Customer update failed..!");
         }
     }
 
