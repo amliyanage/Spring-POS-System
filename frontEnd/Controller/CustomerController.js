@@ -194,8 +194,8 @@ $('#CustomerManage .updateBtn').click(function(){
 
 });
 
-function reloadTable(){
-    let customers = getAllCustomers();
+async function reloadTable(){
+    let customers = await getAllCustomers();
     $('#CustomerManage .tableRow').empty();
     customers.forEach(c => {
         loadTable(c);
