@@ -161,21 +161,21 @@ $('#CustomerManage .cleatBtn').click(function(){
 });
 
 $('#CustomerManage .searchBtn').click(function(){
-    let customer = searchCustomer($('#CustomerManage .custId').val());
+    searchCustomer($('#CustomerManage .custId').val());
+});
+
+async function searchCustomer(id){
+    let customers = await getAllCustomers();
+    let customer = customers.find(c => c.customerId === id);
+
     if(customer){
-        $('#CustomerManage .custName').val(customer.custName);
-        $('#CustomerManage .custAddress').val(customer.custAddress);
-        $('#CustomerManage .custSalary').val(customer.custSalary);
+        $('#CustomerManage .custName').val(customer.customerName);
+        $('#CustomerManage .custAddress').val(customer.customerAddress);
+        $('#CustomerManage .custSalary').val(customer.customerSalary);
     }
     else{
         alert('Customer Not Found');
     }
-});
-
-function searchCustomer(id){
-    let customers = getAllCustomers();
-    let customer = customers.find(c => c.custId === id);
-    return customer;
 }
 
 $('#CustomerManage .updateBtn').click( async function(){
