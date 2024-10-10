@@ -50,7 +50,7 @@ async function validate(customer){
 
     let valid = true;
 
-    if((/^C0[0-9]+$/).test(customer.custId)){
+    if((/^C0[0-9]+$/).test(customer.customerId)){
         $('#CustomerManage .invalidCustId').text('');
         valid = true;
     }
@@ -59,7 +59,7 @@ async function validate(customer){
         valid = false;
     }
 
-    if((/^(?:[A-Z][a-z]*)(?: [A-Z][a-z]*)*$/).test(customer.custName)){
+    if((/^(?:[A-Z][a-z]*)(?: [A-Z][a-z]*)*$/).test(customer.customerName)){
         $('#CustomerManage .invalidCustName').text('');
         
         if(valid){
@@ -72,7 +72,7 @@ async function validate(customer){
         valid = false;
     }
 
-    if((/^[A-Z][a-z, ]+$/).test(customer.custAddress)){
+    if((/^[A-Z][a-z, ]+$/).test(customer.customerAddress)){
         $('#CustomerManage .invalidCustAddress').text('');
         
         if(valid){
@@ -85,7 +85,7 @@ async function validate(customer){
         valid = false;
     }
 
-    if(customer.custSalary != null && customer.custSalary > 0){
+    if(customer.customerSalary != null && customer.customerSalary > 0){
         $('#CustomerManage .invalidCustSalary').text('');
         if(valid){
             valid = true;
@@ -99,7 +99,7 @@ async function validate(customer){
 
     let customers = await getAllCustomers();
     for(let i = 0; i < customers.length; i++){
-        if(customers[i].custId === customer.custId){
+        if(customers[i].customerId === customer.customerId){
             $('#CustomerManage .invalidCustId').text('Customer Id Already Exists');
             valid = false;
         }
@@ -178,25 +178,28 @@ function searchCustomer(id){
     return customer;
 }
 
-$('#CustomerManage .updateBtn').click(function(){
+$('#CustomerManage .updateBtn').click( async function(){
     
     let UpdateCustomer = {
-        custId : 'C00',
-        custName : $('#CustomerManage .custName').val(),
-        custAddress : $('#CustomerManage .custAddress').val(),
-        custSalary : $('#CustomerManage .custSalary').val()
+        customerId : "C00",
+        customerName : $('#CustomerManage .custName').val(),
+        customerAddress : $('#CustomerManage .custAddress').val(),
+        customerSalary : $('#CustomerManage .custSalary').val()
     }
 
     let validResult = validate(UpdateCustomer);
 
-    UpdateCustomer.custId = $('#CustomerManage .custId').val();
+    UpdateCustomer.customerId = $('#CustomerManage .custId').val();
     
     if(validResult){
-        let customers = getAllCustomers();
-        let index = customers.findIndex(c => c.custId === UpdateCustomer.custId);
-        updateCustomer(index, UpdateCustomer);
-        alert('Customer Updated');
-        refresh();
+        const response = await updateCustomer(UpdateCustomer);
+        if(response.status === 201){
+            alert('Customer Updated');
+            refresh();
+        }
+        else{
+            alert(response.data);
+        }
     }
 
 });

@@ -36,8 +36,24 @@ export function getAllCustomers() {
     })
 }
 
-export function updateCustomer(index , customer){
-    Customers[index] = customer;
+export function updateCustomer(customer){
+    const endPoint ="http://localhost:8080/api/v1/customer"
+    console.log("update",customer);
+
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: endPoint,
+            type: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(customer),
+            success: function(response, status, xhr){
+                resolve({status: xhr.status, data: response})
+            },
+            error: function(xhr, status, error){
+                reject(error)
+            }
+        })
+    })
 }
 
 export function deleteCustomer(customerId){
