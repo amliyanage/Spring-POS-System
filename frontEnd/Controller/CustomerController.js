@@ -41,7 +41,7 @@ $('#CustomerManage .saveBtn').click(function(){
 });
 
 
-function validate(customer){
+async function validate(customer){
 
     let valid = true;
 
@@ -92,7 +92,7 @@ function validate(customer){
         valid = false;
     }
 
-    let customers = getAllCustomers();
+    let customers = await getAllCustomers();
     for(let i = 0; i < customers.length; i++){
         if(customers[i].custId === customer.custId){
             $('#CustomerManage .invalidCustId').text('Customer Id Already Exists');
@@ -106,10 +106,10 @@ function validate(customer){
 function loadTable(customer){
     $('#CustomerManage .tableRow').append(
         '<tr> ' +
-            '<td>' + customer.custId + '</td>' +
-            '<td>' + customer.custName + '</td>' +
-            '<td>' + customer.custAddress + '</td>' +
-            '<td>' + customer.custSalary + '</td>' +
+            '<td>' + customer.customerId + '</td>' +
+            '<td>' + customer.customerName + '</td>' +
+            '<td>' + customer.customerAddress + '</td>' +
+            '<td>' + customer.customerSalary + '</td>' +
         '</tr>' 
     );
 }
@@ -122,13 +122,14 @@ function extractNumber(id) {
     return null;
 }
 
-function createCustomerId() {
-    let customers = getAllCustomers();
+async function createCustomerId() {
+    let customers = await getAllCustomers();
     
     if (!customers || customers.length === 0) {
         return 'C01';
     } else {
         let lastCustomer = customers[customers.length - 1];
+        console.log("lastCustomer",lastCustomer);
         let id = lastCustomer && lastCustomer.custId ? lastCustomer.custId : 'C00';
         
         let number = extractNumber(id);
@@ -196,6 +197,7 @@ $('#CustomerManage .updateBtn').click(function(){
 
 async function reloadTable(){
     let customers = await getAllCustomers();
+    console.log("contoleler",customers);
     $('#CustomerManage .tableRow').empty();
     customers.forEach(c => {
         loadTable(c);
