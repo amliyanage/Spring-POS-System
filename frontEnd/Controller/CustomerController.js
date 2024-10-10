@@ -210,19 +210,20 @@ async function reloadTable(){
     });
 }
 
-$('#CustomerManage .removeBtn').click(function(){
-    let customers = getAllCustomers();
+$('#CustomerManage .removeBtn').click( async function(){
+
     let id = $('#CustomerManage .custId').val();
 
-    let index = customers.findIndex(c => c.custId === id);
-    if(index >= 0){
-        deleteCustomer(index);
-        alert('Customer Deleted');
-        refresh();
+    const response = await deleteCustomer(id)
+
+    if(response.status === 200){
+        alert("delete success");
+        refresh()
     }
     else{
-        alert('Customer Not Found');
+        alert(response.data)
     }
+
 });
 
 $('#CustomerManage .tableRow').on('click', 'tr', function(){

@@ -40,6 +40,19 @@ export function updateCustomer(index , customer){
     Customers[index] = customer;
 }
 
-export function deleteCustomer(index){
-    Customers.splice(index, 1);
+export function deleteCustomer(customerId){
+    const endPoint = "http://localhost:8080/api/v1/customer/"+customerId
+
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: endPoint,
+            type: "DELETE",
+            success: function (response , status, xhr) {
+                resolve({status: xhr.status, data: response})
+            },
+            error: function (xhr, status, error) {
+                reject(error)
+            }
+        })
+    })
 }
