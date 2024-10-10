@@ -1,7 +1,22 @@
 import { Customers } from '../db/DB.js';
 
 export function saveCustomer(customer) {
-    Customers.push(customer);
+    const endPoint = "http://localhost:8080/api/v1/customer"
+
+    return new Promise((resolve, reject) =>{
+        $.ajax({
+            url: endPoint,
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(customer),
+            success: function(response , status, xhr){
+                resolve({status: xhr.status, data: response})
+            },
+            error: function(xhr, status, error){
+                reject(error)
+            }
+        })
+    })
 }
 
 export function getAllCustomers() {

@@ -16,7 +16,7 @@ var custName;
 var custAddress;
 var custSalary;
 
-$('#CustomerManage .saveBtn').click(function(){
+$('#CustomerManage .saveBtn').click( async function(){
 
     custId = $('#CustomerManage .custId').val();
     custName = $('#CustomerManage .custName').val();
@@ -24,17 +24,22 @@ $('#CustomerManage .saveBtn').click(function(){
     custSalary = $('#CustomerManage .custSalary').val();
 
     let customer = {
-        custId : custId,
-        custName : custName,
-        custAddress : custAddress,
-        custSalary : custSalary
+        customerId : custId,
+        customerName : custName,
+        customerAddress : custAddress,
+        customerSalary : custSalary
     }
 
     let validResult = validate(customer);
 
     if(validResult){
-        saveCustomer(customer);
-        alert('Customer Saved');
+        const response = await saveCustomer(customer);
+        if(response.status === 201){
+            alert('Customer Saved');
+        }
+        else{
+            alert(response.data);
+        }
         refresh();
     }
 
@@ -130,16 +135,17 @@ async function createCustomerId() {
     } else {
         let lastCustomer = customers[customers.length - 1];
         console.log("lastCustomer",lastCustomer);
-        let id = lastCustomer && lastCustomer.custId ? lastCustomer.custId : 'C00';
-        
+        let id = lastCustomer && lastCustomer.customerId ? lastCustomer.customerId : 'C00';
+        console.log("id",id);
         let number = extractNumber(id);
         number++;
-        return 'C0' + number;
+        console.log("number",number);
+        $('#CustomerManage .custId').val("C0" + number);
     }
 }
 
 function refresh(){
-    $('#CustomerManage .custId').val(createCustomerId());
+    createCustomerId();
     $('#CustomerManage .custName').val('');
     $('#CustomerManage .custAddress').val('');
     $('#CustomerManage .custSalary').val('');
