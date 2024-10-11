@@ -1,4 +1,4 @@
-package lk.ijse.customObj;
+package lk.ijse.customObj.response;
 
 public interface CustomerResponse {
 }

@@ -1,11 +1,11 @@
 package lk.ijse.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,4 +19,7 @@ public class CustomerEntity implements SuperEntity {
     private String customerName;
     private String customerAddress;
     private double customerSalary;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<OrderEntity> orders;
 }

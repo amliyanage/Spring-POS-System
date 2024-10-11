@@ -2,10 +2,13 @@ package lk.ijse.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,4 +22,7 @@ public class ItemEntity implements SuperEntity {
     private String itemName;
     private int itemQty;
     private double itemPrice;
+
+    @ManyToMany(mappedBy = "items")
+    private List<OrderEntity> orders;
 }
