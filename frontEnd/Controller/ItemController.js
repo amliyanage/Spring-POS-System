@@ -111,7 +111,7 @@ function extractNumber(id){
 
 
 function refresh(){
-    $('#ItemManage .itemId').val(generateId());
+    generateId();
     $('#ItemManage .itemName').val('');
     $('#ItemManage .itemQty').val('');
     $('#ItemManage .itemPrice').val('');
@@ -119,29 +119,29 @@ function refresh(){
     $('.counts .items h2').text(getAllItems().length);
 }
 
-function generateId(){
-    let items = getAllItems();
+async function generateId(){
+    let items = await getAllItems();
 
     if(!items || items.length == 0){
-        return 'I01';
+        $('#ItemManage .itemId').val('I01');
     }
     else{
         let lastItem = items[items.length - 1];
-        console.log(lastItem);
-        let number = extractNumber(lastItem.itemId);
+        console.log("lastItem",lastItem);
+        let number = extractNumber(lastItem.itemCode);
         console.log(number);
         number++;
-        return 'I0' + number;
+        $('#ItemManage .itemId').val('I0' + number);
     }
 }
 
-function loadTable(){
-    let items = getAllItems();
+async function loadTable(){
+    let items = await getAllItems();
     $('#ItemManage .tableRow').empty();
     for(let i = 0; i < items.length; i++){
         $('#ItemManage .tableRow').append(
             '<tr> ' +
-                '<td>' + items[i].itemId + '</td>' +
+                '<td>' + items[i].itemCode + '</td>' +
                 '<td>' + items[i].itemName + '</td>' +
                 '<td>' + items[i].itemQty + '</td>' +
                 '<td>' + items[i].itemPrice + '</td>' +
