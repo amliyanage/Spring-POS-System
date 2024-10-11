@@ -3,6 +3,7 @@ package lk.ijse.Controller;
 import lk.ijse.Service.ItemService;
 import lk.ijse.dto.ItemDTO;
 import lk.ijse.exception.DataPersistFailedException;
+import lk.ijse.exception.ItemNotFountException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,20 @@ public class ItemController {
         try {
             itemService.updateItem(itemDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (DataPersistFailedException e) {
+        } catch (ItemNotFountException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/{itemCode}")
+    public ResponseEntity<ItemDTO> getItem(@PathVariable("itemCode") String itemCode){
+        try {
+            ItemDTO item = itemService.getItem(itemCode);
+            return new ResponseEntity<>(item,HttpStatus.OK);
+        } catch (ItemNotFountException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         catch (Exception e) {

@@ -3,10 +3,10 @@ package lk.ijse.Service.impl;
 import lk.ijse.Repository.ItemRepository;
 import lk.ijse.Service.ItemService;
 import lk.ijse.dto.ItemDTO;
-import lk.ijse.entity.CustomerEntity;
 import lk.ijse.entity.ItemEntity;
 import lk.ijse.exception.CustomerNotFountException;
 import lk.ijse.exception.DataPersistFailedException;
+import lk.ijse.exception.ItemNotFountException;
 import lk.ijse.util.Mapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,17 @@ public class ItemServiceIMPL implements ItemService {
             itemEntity.get().setItemPrice(itemDTO.getItemPrice());
             itemEntity.get().setItemQty(itemDTO.getItemQty());
         } else {
-            throw new CustomerNotFountException("item update failed..!");
+            throw new ItemNotFountException("item update failed..!");
+        }
+    }
+
+    @Override
+    public ItemDTO getItem(String itemCode) {
+        Optional<ItemEntity> itemEntity = itemRepository.findById(itemCode);
+        if (itemEntity.isPresent()) {
+            return mapping.convertToDTO(itemEntity.get());
+        } else {
+            throw new ItemNotFountException("Item not found..!");
         }
     }
 
