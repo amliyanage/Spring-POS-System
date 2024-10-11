@@ -50,6 +50,20 @@ export function deleteItem(itemCode){
     })
 }
 
-export function updateItem(index, item){
-    Items[index] = item;
+export function updateItem(item){
+    const end_point = "http://localhost:8080/api/v1/item"
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: end_point,
+            type: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(item),
+            success: function(response, status, xhr) {
+                resolve({status: xhr.status, data: response})
+            },
+            error: function(xhr, status, error) {
+                reject(error)
+            }
+        })
+    })
 }

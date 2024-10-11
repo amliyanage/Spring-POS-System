@@ -179,9 +179,9 @@ $('#ItemManage .deleteBtn').click(async function(){
     }
 });
 
-$('#ItemManage .updateBtn').click(function(){
+$('#ItemManage .updateBtn').click(async function(){
     let item = {
-        itemId : 'I00',
+        itemCode : 'I00',
         itemName : $('#ItemManage .itemName').val(),
         itemQty : $('#ItemManage .itemQty').val(),
         itemPrice : $('#ItemManage .itemPrice').val()
@@ -189,14 +189,17 @@ $('#ItemManage .updateBtn').click(function(){
 
     let valid = validate(item);
 
-    item.itemId = $('#ItemManage .itemId').val();
+    item.itemCode = $('#ItemManage .itemId').val();
 
     if(valid){
-        let items = getAllItems();
-        let index = items.findIndex(i => i.itemId === item.itemId);
-        updateItem(index, item);
-        alert('Item Updated');
-        refresh();
+        const response = await updateItem(item);
+        if(response.status === 201){
+            alert('Item Updated');
+            refresh();
+        }
+        else{
+            alert(response.data);
+        }
     }
 });
 
