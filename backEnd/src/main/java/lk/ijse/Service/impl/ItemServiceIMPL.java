@@ -4,7 +4,6 @@ import lk.ijse.Repository.ItemRepository;
 import lk.ijse.Service.ItemService;
 import lk.ijse.dto.ItemDTO;
 import lk.ijse.entity.ItemEntity;
-import lk.ijse.exception.CustomerNotFountException;
 import lk.ijse.exception.DataPersistFailedException;
 import lk.ijse.exception.ItemNotFountException;
 import lk.ijse.util.Mapping;
@@ -57,6 +56,15 @@ public class ItemServiceIMPL implements ItemService {
         Optional<ItemEntity> itemEntity = itemRepository.findById(itemCode);
         if (itemEntity.isPresent()) {
             return mapping.convertToDTO(itemEntity.get());
+        } else {
+            throw new ItemNotFountException("Item not found..!");
+        }
+    }
+
+    @Override
+    public void deleteItem(String itemCode) {
+        if (itemRepository.existsById(itemCode)) {
+            itemRepository.deleteById(itemCode);
         } else {
             throw new ItemNotFountException("Item not found..!");
         }
