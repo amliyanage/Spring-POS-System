@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -21,5 +22,6 @@ public class CustomerEntity implements SuperEntity {
     private double customerSalary;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<OrderEntity> orders;
 }

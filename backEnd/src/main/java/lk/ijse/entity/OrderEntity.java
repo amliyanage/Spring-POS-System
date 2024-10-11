@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class OrderEntity implements SuperEntity {
 
     @ManyToOne
     @JoinColumn(name = "customerId", referencedColumnName = "customerId")
+    @ToString.Exclude
     private CustomerEntity customer;
 
     @ManyToMany
@@ -32,6 +34,7 @@ public class OrderEntity implements SuperEntity {
             joinColumns = @JoinColumn(name = "orderId", referencedColumnName = "orderId"),
             inverseJoinColumns = @JoinColumn(name = "itemCode", referencedColumnName = "itemCode")
     )
+    @ToString.Exclude
     private List<ItemEntity> items;
 }
 
