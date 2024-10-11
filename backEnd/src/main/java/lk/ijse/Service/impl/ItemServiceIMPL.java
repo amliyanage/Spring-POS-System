@@ -5,12 +5,15 @@ import lk.ijse.Service.ItemService;
 import lk.ijse.dto.ItemDTO;
 import lk.ijse.entity.CustomerEntity;
 import lk.ijse.entity.ItemEntity;
+import lk.ijse.exception.CustomerNotFountException;
 import lk.ijse.exception.DataPersistFailedException;
 import lk.ijse.util.Mapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -34,6 +37,18 @@ public class ItemServiceIMPL implements ItemService {
             }
         }else {
             throw new DataPersistFailedException("Item already exist..!");
+        }
+    }
+
+    @Override
+    public void updateItem(ItemDTO itemDTO) {
+        Optional<ItemEntity> itemEntity = itemRepository.findById(itemDTO.getItemCode());
+        if (itemEntity.isPresent()) {
+            itemEntity.get().setItemName(itemDTO.getItemName());
+            itemEntity.get().setItemPrice(itemDTO.getItemPrice());
+            itemEntity.get().setItemQty(itemDTO.getItemQty());
+        } else {
+            throw new CustomerNotFountException("item update failed..!");
         }
     }
 

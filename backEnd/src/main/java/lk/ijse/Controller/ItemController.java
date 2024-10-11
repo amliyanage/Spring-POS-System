@@ -32,4 +32,17 @@ public class ItemController {
         }
     }
 
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> updateItem(@RequestBody ItemDTO itemDTO){
+        try {
+            itemService.updateItem(itemDTO);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (DataPersistFailedException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
