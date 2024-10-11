@@ -1,5 +1,3 @@
-import { Customers } from '../db/DB.js';
-
 export function saveCustomer(customer) {
     const endPoint = "http://localhost:8080/api/v1/customer"
 

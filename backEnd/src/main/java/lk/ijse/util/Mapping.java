@@ -1,7 +1,9 @@
 package lk.ijse.util;
 
 import lk.ijse.dto.CustomerDTO;
+import lk.ijse.dto.ItemDTO;
 import lk.ijse.entity.CustomerEntity;
+import lk.ijse.entity.ItemEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,6 +27,18 @@ public class Mapping {
 
     public List<CustomerDTO> convertToDTOList(List<CustomerEntity> entities) {
         return entities.stream().map(entity -> modelMapper.map(entity, CustomerDTO.class)).collect(Collectors.toList());
+    }
+
+    public ItemEntity convertToEntity(ItemDTO dto) {
+        return modelMapper.map(dto, ItemEntity.class);
+    }
+
+    public ItemDTO convertToDTO(ItemEntity entity) {
+        return modelMapper.map(entity, ItemDTO.class);
+    }
+
+    public List<ItemDTO> convertItemToDTOList(List<ItemEntity> entities) {
+        return entities.stream().map(entity -> modelMapper.map(entity, ItemDTO.class)).collect(Collectors.toList());
     }
 
 }

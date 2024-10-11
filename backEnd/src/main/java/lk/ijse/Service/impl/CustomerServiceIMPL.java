@@ -19,7 +19,6 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class CustomerServiceIMPL implements CustomerService {
 
     @Autowired
