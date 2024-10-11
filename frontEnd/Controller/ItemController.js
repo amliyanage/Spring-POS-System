@@ -207,10 +207,10 @@ $('#ItemManage .clearBtn').click(function(){
     refresh();
 });
 
-$('#ItemManage .searchBtn').click(function(){
+$('#ItemManage .searchBtn').click(async function(){
     let id = $('#ItemManage .itemId').val();
-    let items = getAllItems();
-    let item = items.find(item => item.itemId === id);
+    let items = await getAllItems();
+    let item = items.find(item => item.itemCode === id);
     if(item){
         $('#ItemManage .itemName').val(item.itemName);
         $('#ItemManage .itemQty').val(item.itemQty);
