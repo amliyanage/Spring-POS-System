@@ -43,7 +43,7 @@ $('#ItemManage .saveBtn').click(async function(){
 
 });
 
-function validate(item){
+async function validate(item){
         
         let valid = true;
         
@@ -92,7 +92,7 @@ function validate(item){
             valid = false;
         }
 
-        let items = getAllItems();
+        let items = await getAllItems();
 
         for(let i = 0; i < items.length; i++){
             if(items[i].itemCode === item.itemCode){
@@ -167,17 +167,15 @@ $('#ItemManage .tableRow').on('click', 'tr', function(){
     $('#ItemManage .itemPrice').val(price);
 });
 
-$('#ItemManage .deleteBtn').click(function(){
+$('#ItemManage .deleteBtn').click(async function(){
     let id = $('#ItemManage .itemId').val();
-    let items = getAllItems();
-    let item = items.findIndex(item => item.itemId === id);
-    if(item >= 0){
-        deleteItem(item);
+    const response = await deleteItem(id);
+    if(response.status === 200){
         alert('Item Deleted');
         refresh();
     }
     else{
-        $('#ItemManage .invalidCode').text('Item Id does not exist');
+        alert(response.data);
     }
 });
 

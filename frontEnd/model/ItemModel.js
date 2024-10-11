@@ -34,8 +34,20 @@ export function getAllItems() {
     })
 }
 
-export function deleteItem(index){
-    Items.splice(index, 1);
+export function deleteItem(itemCode){
+    const end_point = "http://localhost:8080/api/v1/item/"+itemCode;
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: end_point,
+            type: "DELETE",
+            success: function(response, status, xhr) {
+                resolve({status: xhr.status, data: response})
+            },
+            error: function(xhr, status, error) {
+                reject(error)
+            }
+        })
+    })
 }
 
 export function updateItem(index, item){
