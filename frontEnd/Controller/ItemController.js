@@ -16,7 +16,7 @@ var itemName;
 var itemQty;
 var itemPrice;
 
-$('#ItemManage .saveBtn').click(function(){
+$('#ItemManage .saveBtn').click(async function(){
     
         itemId = $('#ItemManage .itemId').val();
         itemName = $('#ItemManage .itemName').val();
@@ -24,16 +24,21 @@ $('#ItemManage .saveBtn').click(function(){
         itemPrice = $('#ItemManage .itemPrice').val();
     
         let item = {
-            itemId : itemId,
+            itemCode : itemId,
             itemName : itemName,
             itemQty : itemQty,
             itemPrice : itemPrice
         }
 
         if(validate(item)){
-            saveItem(item);
-            alert('Item Saved');
-            refresh();
+            const response = await saveItem(item);
+            if(response.status === 201){
+                alert('Item Saved');
+                refresh();
+            }
+            else{
+                alert(response.data);
+            }
         }
 
 });
@@ -42,7 +47,7 @@ function validate(item){
         
         let valid = true;
         
-        if((/^I0[0-9]+$/).test(item.itemId)){
+        if((/^I0[0-9]+$/).test(item.itemCode)){
             $('#ItemManage .invalidCode').text('');
             valid = true;
         }
@@ -90,7 +95,7 @@ function validate(item){
         let items = getAllItems();
 
         for(let i = 0; i < items.length; i++){
-            if(items[i].itemId === item.itemId){
+            if(items[i].itemCode === item.itemCode){
                 $('#ItemManage .invalidCode').text('Item Id already exists');
                 valid = false;
                 return valid;

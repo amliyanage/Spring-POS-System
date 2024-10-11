@@ -1,8 +1,21 @@
 import { Items } from '../db/DB.js';
 
 export function saveItem(item) {
-    Items.push(item);
-    console.log(Items);
+    const end_point = "http://localhost:8080/api/v1/item"
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: end_point,
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(item),
+            success: function(response, status, xhr) {
+                resolve({status: xhr.status, data: response})
+            },
+            error: function(xhr, status, error) {
+                reject(error)
+            }
+        })
+    })
 }
 
 export function getAllItems() {
