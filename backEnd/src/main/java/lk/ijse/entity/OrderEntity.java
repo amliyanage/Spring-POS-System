@@ -1,5 +1,6 @@
 package lk.ijse.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,7 +26,7 @@ public class OrderEntity implements SuperEntity {
 
     @ManyToOne
     @JoinColumn(name = "customerId", referencedColumnName = "customerId")
-    @ToString.Exclude
+    @JsonIgnore
     private CustomerEntity customer;
 
     @ManyToMany
@@ -34,7 +35,7 @@ public class OrderEntity implements SuperEntity {
             joinColumns = @JoinColumn(name = "orderId", referencedColumnName = "orderId"),
             inverseJoinColumns = @JoinColumn(name = "itemCode", referencedColumnName = "itemCode")
     )
-    @ToString.Exclude
+    @JsonIgnore
     private List<ItemEntity> items;
 }
 

@@ -29,6 +29,7 @@ public class OrderController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> saveOrder(@RequestBody OrderDTO orderDTO){
+        System.out.println(orderDTO);
         try {
             orderService.saveOrder(orderDTO);
             orderDTO.getItems().forEach(itemDTO -> {
@@ -46,10 +47,10 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<Integer> getAllOrders(){
+    public ResponseEntity<List<OrderDTO>> getAllOrders(){
         try {
             List<OrderDTO> allOrders = orderService.getAllOrders();
-            return new ResponseEntity<>(allOrders.size(),HttpStatus.OK);
+            return new ResponseEntity<>(allOrders,HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

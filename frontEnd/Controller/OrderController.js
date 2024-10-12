@@ -16,7 +16,7 @@ $('.orderManageBtn').click(function(){
 });
 
 function refresh(){
-    $('#OrderManage .orderId').val(generateId());
+    generateId();
     $('#OrderManage .orderDate').val(new Date().toISOString().split('T')[0]);
     loadCustomer();
     loadItems();
@@ -38,32 +38,34 @@ function extractNumber(id){
     return null;
 }
 
-function generateId(){
-    let orders = getAllOrders();
+async function generateId(){
+    let orders = await getAllOrders();
 
     // alert(orders.length);
     
     if(orders.length === 0){
-        return 'OD01';
+        $('#OrderManage .orderId').val('OD01');
     }
     else{
         // alert('awa');
         let orderId = orders[orders.length - 1].orderId;
+        console.log("oder Id : ",orderId);
         let number = extractNumber(orderId);
         number++;
+        console.log("new oder Id : OD",number);
         // alert('OD0' + number);
-        return 'OD0' + number;
+        $('#OrderManage .orderId').val('OD0' + number);
     }
 }
 
-function loadCustomer(){
+async function loadCustomer(){
     let cmb = $('#OrderManage .customers');
     cmb.empty();
     let option = [];
-    let customers = getAllCustomers();
+    let customers = await getAllCustomers();
     option.unshift('');
     for (let i = 0; i < customers.length; i++) {
-        option.push(customers[i].custId);
+        option.push(customers[i].customerId);
     }
 
     $.each(option, function (index, value) {
@@ -71,22 +73,23 @@ function loadCustomer(){
     });
 }
 
-$('#OrderManage .customers').change(function(){
-    let customer = getAllCustomers().find(c => c.custId === $(this).val());
-    $('#OrderManage .custId').val(customer.custId);
-    $('#OrderManage .custName').val(customer.custName);
-    $('#OrderManage .custAddress').val(customer.custAddress);
-    $('#OrderManage .custSalary').val(customer.custSalary);
+$('#OrderManage .customers').change(async function(){
+    let customers = await getAllCustomers();
+    let customer = customers.find(c => c.customerId === $(this).val());
+    $('#OrderManage .custId').val(customer.customerId);
+    $('#OrderManage .custName').val(customer.customerName);
+    $('#OrderManage .custAddress').val(customer.customerAddress);
+    $('#OrderManage .custSalary').val(customer.customerSalary);
 });
 
-function loadItems(){
+async function loadItems(){
     let cmb = $('#OrderManage .itemCmb');
     cmb.empty();
     let option = [];
-    let items = getAllItems();
+    let items = await getAllItems();
 
     for (let i = 0; i < items.length; i++) {
-        option.push(items[i].itemId);
+        option.push(items[i].itemCode);
     }
 
     option.unshift('');
@@ -96,13 +99,14 @@ function loadItems(){
     });
 }
 
-$('#OrderManage .itemCmb').change(function(){
-    let item = getAllItems().find(i => i.itemId === $(this).val());
-    itemId = item.itemId;
+$('#OrderManage .itemCmb').change(async function(){
+    let item = await getAllItems();
+    item = item.find(I => I.itemCode === $(this).val());
+    itemId = item.itemCode;
     // alert(item.itemQty);
     itemQty = item.itemQty;
     $('#OrderManage .addBtn').text('Add');
-    $('#OrderManage .itemCode').val(item.itemId);
+    $('#OrderManage .itemCode').val(item.itemCode);
     $('#OrderManage .itemName').val(item.itemName);
     $('#OrderManage .itemQty').val(item.itemQty);
     $('#OrderManage .itemPrice').val(item.itemPrice);
@@ -205,7 +209,7 @@ function setTotal(){
     $('#OrderManage .Total').text(total);
 }
 
-$('#OrderManage .placeOrder').click(function(){
+$('#OrderManage .placeOrder').click(async function(){
     let cash = parseFloat($('#OrderManage .Cash').val());
     let total = parseFloat($('#OrderManage .Total').text());
     let discount = parseFloat($('#OrderManage .Discount').val());
@@ -219,25 +223,46 @@ $('#OrderManage .placeOrder').click(function(){
             let balance = cash - subTotal;
             $('#OrderManage .Balance').val(balance.toFixed(2));
 
+            let getAllItems = [];
+
+            getItems.forEach(item => {
+                let newItem = {
+                    itemCode : item.itemCode,
+                    itemName : item.getItems,
+                    itemPrice : item.itemPrice,
+                    itemQty : item.itemQty,
+                }
+                getAllItems.push(newItem);
+            });
+
             let Order = {
                 orderId : $('#OrderManage .orderId').val(),
-                orderDate : $('#OrderManage .orderDate').val(),
-                custId : $('#OrderManage .custId').val(),
-                items : getItems,
-                total : total,
+                balance : balance,
+                date : $('#OrderManage .orderDate').val(),
                 discount : discount,
+                total : total,
                 subTotal : subTotal,
-                cash : cash,
-                balance : balance
+                customer : {
+                    customerId : $('#OrderManage .custId').val(),
+                    customerName : $('#OrderManage .custName').val(),
+                    customerAddress : $('#OrderManage .custAddress').val(),
+                    customerSalary : $('#OrderManage .custSalary').val()
+                },
+                items : getAllItems,
             }
 
-            saveOrder(Order);
-            updateItemData();
-            getItems = [];
-            loadTable();
-            clear(2);
-            alert('Order Placed');
-            refresh();
+            const response = await saveOrder(Order);
+            if(response.status === 201){
+                alert('Order Placed');
+                clear(2);
+                refresh();
+                getItems = [];
+                loadTable();
+            }
+            else{
+                alert(response.data);
+            }
+            
         } else {
             alert('Invalid Discount');
         }
@@ -247,15 +272,15 @@ $('#OrderManage .placeOrder').click(function(){
 });
 
 
-function updateItemData(){
-    let items = getAllItems();
-    for(let i = 0; i < getItems.length; i++){
-        let item = items.find(I => I.itemId === getItems[i].itemCode);
-        item.itemQty -= getItems[i].itemQty;
-        let index = items.findIndex(I => I.itemId === getItems[i].itemCode);
-        updateItem(index, item);
-    }
-}
+// function updateItemData(){
+//     let items = getAllItems();
+//     for(let i = 0; i < getItems.length; i++){
+//         let item = items.find(I => I.itemId === getItems[i].itemCode);
+//         item.itemQty -= getItems[i].itemQty;
+//         let index = items.findIndex(I => I.itemId === getItems[i].itemCode);
+//         updateItem(index, item);
+//     }
+// }
 
 $('.mainTable .tableRows').on('click', 'div', function(){
     let itemCode = $(this).children('div:eq(0)').text();
