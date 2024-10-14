@@ -115,13 +115,14 @@ function extractNumber(id){
 }
 
 
-function refresh(){
+async function refresh(){
     generateId();
     $('#ItemManage .itemName').val('');
     $('#ItemManage .itemQty').val('');
     $('#ItemManage .itemPrice').val('');
     loadTable();
-    $('.counts .items h2').text(getAllItems().length);
+    let items = await getAllItems();
+    $('.counts .items h2').text(items.length);
 }
 
 async function generateId(){

@@ -144,7 +144,7 @@ async function createCustomerId() {
     }
 }
 
-function refresh(){
+async function refresh(){
     createCustomerId();
     $('#CustomerManage .custName').val('');
     $('#CustomerManage .custAddress').val('');
@@ -152,7 +152,8 @@ function refresh(){
     $('#CustomerManage .invalidCustId').text('');
     $('#CustomerManage .invalidCustName').text('');
     $('#CustomerManage .invalidCustAddress').text('');
-    $('.counts .customers h2').text(getAllCustomers().length);
+    const customers = await getAllCustomers();
+    $('.counts .customers h2').text(customers.length);
     reloadTable();
 }
 

@@ -15,7 +15,7 @@ $('.orderManageBtn').click(function(){
     refresh();
 });
 
-function refresh(){
+async function refresh(){
     generateId();
     $('#OrderManage .orderDate').val(new Date().toISOString().split('T')[0]);
     loadCustomer();
@@ -26,8 +26,8 @@ function refresh(){
     $('#OrderManage .Balance').val("");
     $('#OrderManage .Cash').val('');
     $('#OrderManage .Discount').val('');
-
-    $('.counts .orders h2').text(getAllOrders().length);
+    const orders = await getAllOrders();
+    $('.counts .orders h2').text(orders.length);
 }
 
 function extractNumber(id){

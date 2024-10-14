@@ -1,5 +1,6 @@
 package lk.ijse.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lk.ijse.entity.OrderEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +16,7 @@ public class CustomerDTO implements SuperDTO {
     private String customerName;
     private String customerAddress;
     private double customerSalary;
-    // List of orders without recursive customer reference
+
+    @JsonIgnore
     private List<OrderDTO> orders;
 }
