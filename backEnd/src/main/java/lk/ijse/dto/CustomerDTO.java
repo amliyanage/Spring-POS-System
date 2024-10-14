@@ -15,5 +15,6 @@ public class CustomerDTO implements SuperDTO {
     private String customerName;
     private String customerAddress;
     private double customerSalary;
+    // List of orders without recursive customer reference
     private List<OrderDTO> orders;
 }

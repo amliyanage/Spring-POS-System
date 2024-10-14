@@ -21,7 +21,7 @@ public class CustomerEntity implements SuperEntity {
     private String customerAddress;
     private double customerSalary;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<OrderEntity> orders;
 }

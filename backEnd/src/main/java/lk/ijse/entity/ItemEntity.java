@@ -7,6 +7,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -24,5 +25,6 @@ public class ItemEntity implements SuperEntity {
     private double itemPrice;
 
     @ManyToMany(mappedBy = "items")
+    @ToString.Exclude
     private List<OrderEntity> orders;
 }

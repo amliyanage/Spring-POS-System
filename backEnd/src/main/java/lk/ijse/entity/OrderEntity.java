@@ -38,4 +38,3 @@ public class OrderEntity implements SuperEntity {
     @JsonIgnore
     private List<ItemEntity> items;
 }
-
