@@ -6,6 +6,7 @@ import lk.ijse.dto.ItemDTO;
 import lk.ijse.dto.OrderDTO;
 import lk.ijse.exception.DataPersistFailedException;
 import lk.ijse.exception.ItemNotFountException;
+import lk.ijse.util.Validation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,8 +26,14 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> saveOrder(@RequestBody OrderDTO orderDTO){
-        System.out.println(orderDTO);
+    public ResponseEntity<Void> saveOrder(@RequestBody OrderDTO orderDTO){
+
+        String validationResponse = Validation.OrderValidation(orderDTO);
+
+        if (validationResponse.equals("Invalid")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         try {
             orderService.saveOrder(orderDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
