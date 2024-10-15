@@ -1,9 +1,11 @@
 package lk.ijse.Controller;
 
 import lk.ijse.Service.CustomerService;
+import lk.ijse.customObj.response.CustomerResponse;
 import lk.ijse.dto.CustomerDTO;
 import lk.ijse.exception.CustomerNotFountException;
 import lk.ijse.exception.DataPersistFailedException;
+import lk.ijse.util.Validation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +25,12 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> saveCustomer(@RequestBody CustomerDTO customerDTO){
+    public ResponseEntity<Void> saveCustomer(@RequestBody CustomerDTO customerDTO){
+
+        String validationResponse = Validation.validateCustomer(customerDTO);
+        if (validationResponse.equals("Invalid")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         try {
             customerService.saveCustomer(customerDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -35,7 +42,11 @@ public class CustomerController {
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> updateCustomer(@RequestBody CustomerDTO customerDTO){
+    public ResponseEntity<Void> updateCustomer(@RequestBody CustomerDTO customerDTO){
+        String validationResponse = Validation.validateCustomer(customerDTO);
+        if (validationResponse.equals("Invalid")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         try {
             customerService.updateCustomer(customerDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -47,19 +58,12 @@ public class CustomerController {
     }
 
     @GetMapping("/{customerId}")
-    public ResponseEntity<CustomerDTO> getCustomer(@PathVariable("customerId") String customerId){
-        try {
-            CustomerDTO customer = customerService.getCustomer(customerId);
-            return new ResponseEntity<>(customer,HttpStatus.OK);
-        } catch (CustomerNotFountException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<CustomerResponse> getCustomer(@PathVariable("customerId") String customerId){
+        return new ResponseEntity<>(customerService.getCustomer(customerId),HttpStatus.OK);
     }
 
     @DeleteMapping("/{customerId}")
-    public ResponseEntity<String> deleteCustomer(@PathVariable("customerId") String customerId){
+    public ResponseEntity<Void> deleteCustomer(@PathVariable("customerId") String customerId){
         try {
             customerService.deleteCustomer(customerId);
             return new ResponseEntity<>(HttpStatus.OK);

@@ -24,19 +24,11 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @Autowired
-    private ItemService itemService;
-
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> saveOrder(@RequestBody OrderDTO orderDTO){
         System.out.println(orderDTO);
         try {
             orderService.saveOrder(orderDTO);
-            orderDTO.getItems().forEach(itemDTO -> {
-                ItemDTO item = itemService.getItem(itemDTO.getItemCode());
-                item.setItemQty(item.getItemQty() - itemDTO.getItemQty());
-                itemService.updateItem(item);
-            });
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (DataPersistFailedException e) {
             System.out.println(e.getMessage());

@@ -24,12 +24,12 @@ public class OrderEntity implements SuperEntity {
     private double total;
     private double subTotal;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customerId", referencedColumnName = "customerId")
     @JsonIgnore
     private CustomerEntity customer;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "order_item",
             joinColumns = @JoinColumn(name = "orderId", referencedColumnName = "orderId"),

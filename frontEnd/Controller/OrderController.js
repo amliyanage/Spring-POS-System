@@ -21,8 +21,6 @@ async function refresh(){
     loadCustomer();
     loadItems();
     $('#OrderManage .Total').text("");
-    // $('#OrderManage .SubTotal').text("");
-    // $('#OrderManage .SubTotal').text("");
     $('#OrderManage .Balance').val("");
     $('#OrderManage .Cash').val('');
     $('#OrderManage .Discount').val('');

@@ -2,6 +2,8 @@ package lk.ijse.Service.impl;
 
 import lk.ijse.Repository.CustomerRepository;
 import lk.ijse.Service.CustomerService;
+import lk.ijse.customObj.CustomerErrorResponse;
+import lk.ijse.customObj.response.CustomerResponse;
 import lk.ijse.dto.CustomerDTO;
 import lk.ijse.entity.CustomerEntity;
 import lk.ijse.exception.CustomerNotFountException;
@@ -52,13 +54,11 @@ public class CustomerServiceIMPL implements CustomerService {
     }
 
     @Override
-    public CustomerDTO getCustomer(String customerId) {
+    public CustomerResponse getCustomer(String customerId) {
         Optional<CustomerEntity> customerEntity = customerRepository.findById(customerId);
-        if (customerEntity.isPresent()) {
-            return mapping.convertToDTO(customerEntity.get());
-        } else {
-            throw new CustomerNotFountException("Customer not found..!");
-        }
+        return (customerEntity.isPresent())
+                ? mapping.convertToDTO(customerEntity.get())
+                : new CustomerErrorResponse(0, "Customer not found");
     }
 
     @Override
