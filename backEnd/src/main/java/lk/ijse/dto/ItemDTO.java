@@ -1,6 +1,7 @@
 package lk.ijse.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lk.ijse.customObj.response.ItemResponse;
 import lk.ijse.entity.OrderEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ItemDTO implements SuperDTO {
+public class ItemDTO implements SuperDTO , ItemResponse {
     private String itemCode;
     private String itemName;
     private int itemQty;

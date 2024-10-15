@@ -2,6 +2,8 @@ package lk.ijse.Service.impl;
 
 import lk.ijse.Repository.ItemRepository;
 import lk.ijse.Service.ItemService;
+import lk.ijse.customObj.ItemErrorResponse;
+import lk.ijse.customObj.response.ItemResponse;
 import lk.ijse.dto.ItemDTO;
 import lk.ijse.entity.ItemEntity;
 import lk.ijse.exception.DataPersistFailedException;
@@ -53,13 +55,11 @@ public class ItemServiceIMPL implements ItemService {
     }
 
     @Override
-    public ItemDTO getItem(String itemCode) {
+    public ItemResponse getItem(String itemCode) {
         Optional<ItemEntity> itemEntity = itemRepository.findById(itemCode);
-        if (itemEntity.isPresent()) {
-            return mapping.convertToDTO(itemEntity.get());
-        } else {
-            throw new ItemNotFountException("Item not found..!");
-        }
+        return (itemEntity.isPresent())
+                ? mapping.convertToDTO(itemEntity.get())
+                : new ItemErrorResponse(0, "Item not found");
     }
 
     @Override

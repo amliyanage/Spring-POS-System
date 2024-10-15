@@ -1,9 +1,11 @@
 package lk.ijse.Controller;
 
 import lk.ijse.Service.ItemService;
+import lk.ijse.customObj.response.ItemResponse;
 import lk.ijse.dto.ItemDTO;
 import lk.ijse.exception.DataPersistFailedException;
 import lk.ijse.exception.ItemNotFountException;
+import lk.ijse.util.Validation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +25,14 @@ public class ItemController {
     private final ItemService itemService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> saveItem(@RequestBody ItemDTO itemDTO){
+    public ResponseEntity<Void> saveItem(@RequestBody ItemDTO itemDTO){
+
+        String validationResponse = Validation.validateItem(itemDTO);
+
+        if (validationResponse.equals("Invalid")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         try {
             itemService.saveItem(itemDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -36,7 +45,14 @@ public class ItemController {
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> updateItem(@RequestBody ItemDTO itemDTO){
+    public ResponseEntity<Void> updateItem(@RequestBody ItemDTO itemDTO){
+
+        String validationResponse = Validation.validateItem(itemDTO);
+
+        if (validationResponse.equals("Invalid")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         try {
             itemService.updateItem(itemDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -49,20 +65,12 @@ public class ItemController {
     }
 
     @GetMapping("/{itemCode}")
-    public ResponseEntity<ItemDTO> getItem(@PathVariable("itemCode") String itemCode){
-        try {
-            ItemDTO item = itemService.getItem(itemCode);
-            return new ResponseEntity<>(item,HttpStatus.OK);
-        } catch (ItemNotFountException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<ItemResponse> getItem(@PathVariable("itemCode") String itemCode){
+        return new ResponseEntity<>(itemService.getItem(itemCode),HttpStatus.OK);
     }
 
     @DeleteMapping("/{itemCode}")
-    public ResponseEntity<String> deleteItem(@PathVariable("itemCode") String itemCode){
+    public ResponseEntity<Void> deleteItem(@PathVariable("itemCode") String itemCode){
         try {
             itemService.deleteItem(itemCode);
             return new ResponseEntity<>(HttpStatus.OK);
