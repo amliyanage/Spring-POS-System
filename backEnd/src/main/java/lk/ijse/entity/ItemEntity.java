@@ -1,9 +1,6 @@
 package lk.ijse.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +21,7 @@ public class ItemEntity implements SuperEntity {
     private int itemQty;
     private double itemPrice;
 
-    @ManyToMany(mappedBy = "items")
+    @ManyToMany(mappedBy = "items", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<OrderEntity> orders;
 }
