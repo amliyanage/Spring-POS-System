@@ -1,0 +1,103 @@
+16:00:57:845 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization started
+16:00:58:472 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+16:00:58:653 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 145 ms. Found 3 JPA repository interfaces.
+16:00:58:663 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+16:00:58:696 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 31 ms. Found 3 JPA repository interfaces.
+16:00:59:205 [RMI TCP Connection(2)-127.0.0.1] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+16:00:59:347 [RMI TCP Connection(2)-127.0.0.1] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.0.Final
+16:00:59:408 [RMI TCP Connection(2)-127.0.0.1] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+16:01:00:059 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+16:01:00:850 [RMI TCP Connection(2)-127.0.0.1] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasourcenull]
+	Database driver: undefined/unknown
+	Database version: 8.0.38
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+16:01:02:696 [RMI TCP Connection(2)-127.0.0.1] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+16:01:02:928 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+16:01:04:515 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext initialized in 6669 ms
+16:01:04:521 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcher'
+16:01:04:641 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+16:01:04:680 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 38 ms. Found 3 JPA repository interfaces.
+16:01:04:684 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+16:01:04:702 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 17 ms. Found 3 JPA repository interfaces.
+16:01:04:842 [RMI TCP Connection(2)-127.0.0.1] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+16:01:04:868 [RMI TCP Connection(2)-127.0.0.1] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+16:01:04:945 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+16:01:04:993 [RMI TCP Connection(2)-127.0.0.1] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasourcenull]
+	Database driver: undefined/unknown
+	Database version: 8.0.38
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+16:01:05:243 [RMI TCP Connection(2)-127.0.0.1] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+16:01:05:324 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+16:01:05:564 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1043 ms
+16:01:06:141 [http-nio-8080-exec-1] WARN  o.s.web.servlet.PageNotFound - No mapping for GET /
+16:01:06:150 [http-nio-8080-exec-1] WARN  o.s.web.servlet.PageNotFound - No endpoint GET /.
+16:01:06:162 [http-nio-8080-exec-2] WARN  o.s.web.servlet.PageNotFound - No mapping for GET /
+16:01:06:162 [http-nio-8080-exec-2] WARN  o.s.web.servlet.PageNotFound - No endpoint GET /.
+16:01:06:292 [http-nio-8080-exec-4] WARN  o.s.web.servlet.PageNotFound - No mapping for GET /
+16:01:06:295 [http-nio-8080-exec-4] WARN  o.s.web.servlet.PageNotFound - No endpoint GET /.
+16:01:06:473 [http-nio-8080-exec-5] WARN  o.s.web.servlet.PageNotFound - No mapping for GET /favicon.ico
+16:01:06:769 [http-nio-8080-exec-5] WARN  o.s.web.servlet.PageNotFound - No endpoint GET /favicon.ico.
+16:04:00:439 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+16:04:00:443 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+16:04:12:842 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization started
+16:04:13:325 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+16:04:13:435 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 93 ms. Found 3 JPA repository interfaces.
+16:04:13:444 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+16:04:13:460 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 15 ms. Found 3 JPA repository interfaces.
+16:04:13:931 [RMI TCP Connection(2)-127.0.0.1] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+16:04:14:056 [RMI TCP Connection(2)-127.0.0.1] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.0.Final
+16:04:14:120 [RMI TCP Connection(2)-127.0.0.1] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+16:04:14:788 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+16:04:15:464 [RMI TCP Connection(2)-127.0.0.1] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasourcenull]
+	Database driver: undefined/unknown
+	Database version: 8.0.38
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+16:04:17:767 [RMI TCP Connection(2)-127.0.0.1] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+16:04:18:575 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+16:04:20:824 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext initialized in 7980 ms
+16:04:20:833 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcher'
+16:04:21:072 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+16:04:21:181 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 108 ms. Found 3 JPA repository interfaces.
+16:04:21:214 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+16:04:21:252 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 35 ms. Found 3 JPA repository interfaces.
+16:04:21:308 [RMI TCP Connection(2)-127.0.0.1] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+16:04:21:375 [RMI TCP Connection(2)-127.0.0.1] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+16:04:21:631 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+16:04:21:739 [RMI TCP Connection(2)-127.0.0.1] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasourcenull]
+	Database driver: undefined/unknown
+	Database version: 8.0.38
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+16:04:22:198 [RMI TCP Connection(2)-127.0.0.1] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+16:04:22:379 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+16:04:22:916 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2083 ms
+16:04:24:028 [http-nio-8080-exec-2] WARN  o.s.web.servlet.PageNotFound - No mapping for GET /
+16:04:24:164 [http-nio-8080-exec-2] WARN  o.s.web.servlet.PageNotFound - No endpoint GET /.
+16:04:24:430 [http-nio-8080-exec-1] WARN  o.s.web.servlet.PageNotFound - No mapping for GET /
+16:04:24:431 [http-nio-8080-exec-1] WARN  o.s.web.servlet.PageNotFound - No endpoint GET /.
+16:04:24:973 [http-nio-8080-exec-3] WARN  o.s.web.servlet.PageNotFound - No mapping for GET /
+16:04:24:982 [http-nio-8080-exec-3] WARN  o.s.web.servlet.PageNotFound - No endpoint GET /.
+16:04:31:297 [http-nio-8080-exec-5] WARN  o.s.web.servlet.PageNotFound - No mapping for GET /favicon.ico
+16:04:31:299 [http-nio-8080-exec-5] WARN  o.s.web.servlet.PageNotFound - No endpoint GET /favicon.ico.
+16:06:00:229 [http-nio-8080-exec-8] INFO  l.ijse.Controller.CustomerController - Customer saved successfully: CustomerDTO(customerId=C01, customerName=Ashen Madhushanka, customerAddress=Galle, customerSalary=100.0, orders=null)
+16:06:04:665 [http-nio-8080-exec-9] INFO  l.ijse.Controller.CustomerController - Fetching customer with ID: C01
+16:06:10:931 [http-nio-8080-exec-10] INFO  l.ijse.Controller.CustomerController - Customer updated successfully: CustomerDTO(customerId=C01, customerName=Ashen, customerAddress=Mathara, customerSalary=100.0, orders=null)
+16:06:16:574 [http-nio-8080-exec-1] INFO  l.ijse.Controller.CustomerController - Fetching all customers, total count: 1
+16:07:08:058 [http-nio-8080-exec-9] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 1451, SQLState: 23000
+16:07:08:059 [http-nio-8080-exec-9] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - Cannot delete or update a parent row: a foreign key constraint fails (`aad_2`.`order_item`, CONSTRAINT `FKdcrf2b5ldnkwyp2nr8ulfb931` FOREIGN KEY (`itemCode`) REFERENCES `items` (`itemCode`))
+16:09:12:302 [http-nio-8080-exec-2] INFO  l.ijse.Controller.CustomerController - Customer deleted successfully with ID: C01
